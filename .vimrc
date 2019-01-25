@@ -15,6 +15,7 @@ Plugin 'cseelus/vim-colors-lucid'
 Plugin 'kien/ctrlp.vim'
 Plugin 'nvie/vim-flake8'
 Plugin 'tell-k/vim-autopep8'
+Plugin 'morhetz/gruvbox'
 call vundle#end()            " required
 filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
@@ -45,6 +46,10 @@ nnoremap gr gd[{V%::s/<C-R>///gc<left><left><left>
 nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 let g:autopep8_disable_show_diff=1
 autocmd FileType python noremap <buffer> aa :call Autopep8()<CR>
-nnoremap ff :grep <cword> ~/work/ -ri
-nnoremap ft :grep <cword> ~/work/britecore/BriteCore/tests/ -ri
-nnoremap gt :YcmCompleter GoTo
+nnoremap ff :grep <cword> ~/work/ -ri <cr>
+nnoremap ft :grep <cword> ~/work/britecore/BriteCore/tests/ -ri <cr>
+nnoremap gt :YcmCompleter GoTo <cr>
+colorscheme gruvbox
+set background=dark
+nnoremap rt :!docker exec -it test_webserver_1 /srv/www/britecore/run_tests.py -s /srv/www/britecore/%<cr>
+let g:ycm_autoclose_preview_window_after_completion = 1
