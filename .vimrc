@@ -6,8 +6,6 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " ctrl+p to fuzzy search through project files
 Plugin 'kien/ctrlp.vim'
-" python linter
-Plugin 'nvie/vim-flake8'
 " color scheme 
 Plugin 'morhetz/gruvbox'
 " IDE-like features (goto, find usages, etc.)
@@ -32,8 +30,6 @@ noremap <C-H> <C-W>h
 noremap <C-L> <C-W>l
 " Set line numbers
 set nu
-" Call flake with :Flake
-command! Flake call Flake8()
 colorscheme gruvbox
 set background=dark
 " Run tests from docker container
@@ -56,7 +52,7 @@ function! CopyPythonFunctionNames()
 	silent!	normal gg
 endfunction
 
-command! CopyPythonFunctionNames call CopyPythonFunctionNames()
+command CopyPythonFunctionNames call CopyPythonFunctionNames()
 
 " Backslash is unintuitive
 let mapleader = "\<Space>"
