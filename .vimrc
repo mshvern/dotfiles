@@ -130,3 +130,7 @@ function! Branchout()
 endfunction
 
 command Branchout call Branchout()
+
+
+autocmd FileType python syntax match selfMember "self\."
+highlight link selfMember GruvboxYellow
