@@ -17,6 +17,8 @@ Plugin 'mhinz/vim-startify'
 " Preset for better indentation when creating new lines
 " In python files in vim
 Plugin 'Vimjas/vim-python-pep8-indent'
+" To not lose the text while you're scrolling
+Plugin 'terryma/vim-smooth-scroll'
 call vundle#end()            " required for vundle
 filetype plugin indent on    " required for vundle
 
@@ -29,16 +31,18 @@ noremap <C-K> <C-W>k
 noremap <C-H> <C-W>h
 noremap <C-L> <C-W>l
 " Set line numbers
+set rnu
 set nu
 colorscheme gruvbox
 set background=dark
 " Run tests from docker container
-nnoremap rt :!clear && docker exec -it test_webserver_1 /srv/www/britecore/run_tests.py -s /srv/www/britecore/%<cr>
+nnoremap rt :!clear && docker exec -it test_webserver_1 /srv/www/britecore/run_tests.py -s  --with-isolation /srv/www/britecore/%<cr>
 " Autosave Startify sessions on exit 
 let g:startify_session_persistence = 1
 " Persistent undo history
 set undofile 
 set undodir=~/.vim/undo
+set ignorecase
 
 " Function for copying names of all functions 
 " Within currently open buffer
@@ -58,3 +62,34 @@ command CopyPythonFunctionNames call CopyPythonFunctionNames()
 let mapleader = "\<Space>"
 " Stupid Visual Studio habit
 nnoremap <c-s> :w<CR>
+
+" Rebind default scrollers to plugin scrollers
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 10, 2)<CR>
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 10, 2)<CR>
+noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 10, 4)<CR>
+noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 10, 4)<CR>
+set smartcase
+
+" Make a variable belong to class (useful in tests)
+function! SelfIt()
+	let word_to_replace = expand("<cword>")
+	execute '%s/[^\.\_]\zs\ze' . word_to_replace . '/self./'
+endfunction
+
+command SelfIt call SelfIt()
+
+" Make a variable local
+function! UnSelfIt()
+	let word_to_replace = expand("<cword>")
+	execute '%s/self.\ze' . word_to_replace . '//'
+endfunction
+
+command UnSelfIt call UnSelfIt()
+
+" Commit and push with a given message 
+function! GitIt()
+	let commit_message = input("enter your commit message: ")
+	execute '!git add . && git commit -m "' . commit_message . '" && git push'
+endfunction
+
+command GitIt call GitIt()
