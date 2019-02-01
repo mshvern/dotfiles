@@ -22,9 +22,6 @@ Plugin 'terryma/vim-smooth-scroll'
 call vundle#end()            " required for vundle
 filetype plugin indent on    " required for vundle
 
-" Required for fish users I think
-" Can't get vim to stay quiet and nice without it
-set shell=/bin/bash
 " Navigation through splits
 noremap <C-J> <C-W>j
 noremap <C-K> <C-W>k
