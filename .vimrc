@@ -97,7 +97,6 @@ command GitIt call GitIt()
 
 
 " Super lightweight branch switcher
-
 function! BranchCleanup()
 	silent! normal 1G
 	silent! normal dd
@@ -107,6 +106,7 @@ endfunction
 function! Checkout()
 	" I don't know vimscript sadly
 	let branch = substitute(getline('.'), '\* ', '', '')
+	let line_number = line('.')
 	silent! exec '!git checkout ' . branch
 	silent! setlocal modifiable
 	silent! normal gg
@@ -114,6 +114,7 @@ function! Checkout()
 	silent! exec 'r! git branch'
 	silent! call BranchCleanup()
 	silent! setlocal nomodifiable
+	silent! execute 'normal ' . line_number . 'G'
 endfunction
 	
 function! Branchout()
@@ -122,11 +123,11 @@ function! Branchout()
 	silent! execute 'r! git branch'
 	silent! call BranchCleanup()
 	silent! setlocal cursorline
-	silent! :hi CursorLine ctermbg=darkred
+	silent! :hi CursorLine ctermbg=green
 	silent! setlocal nomodifiable
 	silent! syntax match currentBranch "\*.*"
 	silent! highlight link currentBranch Keyword
-	silent! nnoremap <buffer> <CR> :call Checkout()<CR>
+	silent! nnoremap <buffer> <CR> :silent! call Checkout()<CR>
 endfunction
 
 command Branchout call Branchout()
