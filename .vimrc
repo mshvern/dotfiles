@@ -19,14 +19,11 @@ Plugin 'mhinz/vim-startify'
 Plugin 'Vimjas/vim-python-pep8-indent'
 " To not lose the text while you're scrolling
 Plugin 'terryma/vim-smooth-scroll'
+" To see the indentation clearer (I understand fans of curly brackets sometimes)
+Plugin 'nathanaelkane/vim-indent-guides'
 call vundle#end()            " required for vundle
 filetype plugin indent on    " required for vundle
 
-" Navigation through splits
-noremap <C-J> <C-W>j
-noremap <C-K> <C-W>k
-noremap <C-H> <C-W>h
-noremap <C-L> <C-W>l
 " Set line numbers
 set rnu
 set nu
